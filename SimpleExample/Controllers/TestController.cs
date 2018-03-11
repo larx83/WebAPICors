@@ -1,9 +1,10 @@
 ﻿using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using CorsExample1.Models;
 
-namespace CorsExample1.Controllers
+namespace SimpleExample.Controllers
 {
     public class TestController : ApiController
     {
@@ -11,18 +12,24 @@ namespace CorsExample1.Controllers
         {
             var testModel = new TestModel{
                 TestId = 1,
-                TestMessage = "Test message",
+                TestMessage = "Test message sdf",
             };
+
             return Request.CreateResponse(HttpStatusCode.OK, testModel);
         }
 
         public HttpResponseMessage Post([FromBody] TestModel testModel)
         {
-            var output = new TestModel{
+                var output = new TestModel{
                 TestId = testModel.TestId,
-                TestMessage = testModel.TestMessage + "Simple Expample",
+                TestMessage = testModel.TestMessage,
             };  
-            return Request.CreateResponse(HttpStatusCode.OK, output);
+            return Request.CreateResponse(HttpStatusCode.Created, output);
+        }
+
+        public string Options()
+        {
+            return null; // HTTP 200 response with empty body
         }
     }
 }

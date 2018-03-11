@@ -30,6 +30,12 @@
                 <label for="testMessage">Test Message</label>
                 <input id="testMessage" class="pure-input-1-2" type="text" placeholder="testMessage" value="output message">
             </div>
+            
+            <div class="pure-control-group">
+                <label for="corsEnabled">CORS Enabled</label>
+                <input id="corsEnabled" type="checkbox" checked="checked">
+            </div>
+
             <div class="pure-controls">
                 <button type="button" onclick="postButton();">Post to Test Controller</button>
             </div>
@@ -43,35 +49,50 @@
 
     <script src="Scripts/jquery-2.1.4.js"></script>
 
-    <script>
-        function postButton() {
-            var testModel = {
-                "TestId": document.getElementById("testId").value,
-                "TestMessage": document.getElementById("testMessage").value,
-            };
-            var data = JSON.stringify(testModel, null, '   ');
-            $.ajax(document.getElementById("URL").value, {
-                data: data,
-                contentType: 'application/json',
-                type: 'POST',
-                dataType: "json",
-                crossDomain: true,
-                success: function (data) {
-                    document.getElementById("testResults").innerHTML = JSON.stringify(data, null, '   ');
-                },
-                failure: function (errMsg) {
-                    alert(errMsg);
-                }
-            });
-        }
+<script>
 
-        function getButton() {
-            $.getJSON(document.getElementById("URL").value, function (data) {
+    function getUrl() {
+        var url = document.getElementById("URL").value;
+        var corsEnabled = $("#corsEnabled").is(":checked");
+        if (corsEnabled === true) {
+            url = url + "?enable=true";
+        }
+        return url;
+    }
+
+    function postButton() {
+        var testModel = {
+            "TestId": document.getElementById("testId").value,
+            "TestMessage": document.getElementById("testMessage").value,
+        };
+        var data = JSON.stringify(testModel, null, '   ');
+
+        
+
+        $.ajax(getUrl(), {
+            data: data,
+            contentType: 'application/json',
+            type: 'POST',
+            dataType: "json",
+            crossDomain: true,
+            success: function (data) {
                 document.getElementById("testResults").innerHTML = JSON.stringify(data, null, '   ');
-            });
-        }
+                document.getElementById("testId").value = data.TestId + 1;
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
+        });
+    }
 
-    </script>
+    function getButton() {
+        
+        $.getJSON(getUrl(), function (data) {
+            document.getElementById("testResults").innerHTML = JSON.stringify(data, null, '   ');
+        });
+    }
+
+</script>
 
 </body>
 

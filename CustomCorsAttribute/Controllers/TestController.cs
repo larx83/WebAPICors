@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using WebAPI2Cors;
 using WebAPI2Cors.Models;
 
-namespace WebAPI2Cors.Controllers
+namespace CustomCorsAttribute.Controllers
 {
     [EnableCorsCustom]
     public class TestController : ApiController
