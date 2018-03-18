@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
+using SimpleExample;
 
 namespace CorsExample1
 {
@@ -12,25 +13,32 @@ namespace CorsExample1
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            GlobalConfiguration.Configuration.Filters.Add(
+                new ExceptionFilterAttribute());
 
         }
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            var corsEnabled = HttpContext.Current.Request.Params.Get("enable");
+            var request = HttpContext.Current.Request;
+            var response = HttpContext.Current.Response;
+
+            var corsEnabled = request.Params.Get("enable");
+
             if (corsEnabled == "true")
             {
-                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
-                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Credentials", "true");
+                
+                response.AddHeader("Access-Control-Allow-Origin", "*");
+                response.AddHeader("Access-Control-Allow-Credentials", "true");
 
-                //if (HttpContext.Current.Request.HttpMethod == "OPTIONS")
+                //if (request.HttpMethod == "OPTIONS")
                 //{
-                //    HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-                //    HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "Content-Type, Accept, Cache-control, pragma");
-                //    HttpContext.Current.Response.AddHeader("Access-Control-Max-Age", "1728000");
-                //    HttpContext.Current.Response.End();
+                //    response.AddHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+                //    response.AddHeader("Access-Control-Allow-Headers", "Content-Type, Accept, Cache-control, pragma");
+                //    response.AddHeader("Access-Control-Max-Age", "1728000");
+                //    response.End();
                 //}
 
-                
+
             }
         }
 

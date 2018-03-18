@@ -70,19 +70,51 @@
         return url;
     }
 
-    function postButton() {
+    function getData() {
         var testModel = {
             "TestId": document.getElementById("testId").value,
             "TestMessage": document.getElementById("testMessage").value,
         };
-        var data = JSON.stringify(testModel, null, '   ');
+        return JSON.stringify(testModel, null, '   ');
+    }
 
-        
-
+    function postButton() {
         $.ajax(getUrl(), {
-            data: data,
+            data: getData(),
             contentType: 'application/json',
             type: 'POST',
+            dataType: "json",
+            crossDomain: true,
+            success: function (data) {
+                displayResponce(data);
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
+        });
+    }
+
+    function putButton() {
+        $.ajax(getUrl(), {
+            data: getData(),
+            contentType: 'application/json',
+            type: 'PUT',
+            dataType: "json",
+            crossDomain: true,
+            success: function (data) {
+                displayResponce(data);
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
+        });
+    }
+
+    function deleteButton() {
+        $.ajax(getUrl(), {
+            data: getData(),
+            contentType: 'application/json',
+            type: 'DELETE',
             dataType: "json",
             crossDomain: true,
             success: function (data) {

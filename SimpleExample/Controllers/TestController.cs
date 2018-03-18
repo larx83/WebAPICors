@@ -16,7 +16,8 @@ namespace SimpleExample.Controllers
         public HttpResponseMessage Get()
         {
 
-            var testModel = new TestModel{
+            var testModel = new TestModel
+            {
                 TestId = GetId(),
                 TestMessage = "Test message",
             };
@@ -26,11 +27,32 @@ namespace SimpleExample.Controllers
 
         public HttpResponseMessage Post([FromBody] TestModel testModel)
         {
-                var output = new TestModel{
+            var output = new TestModel
+            {
                 TestId = GetId(),
                 TestMessage = testModel.TestMessage,
             };
             return Request.CreateResponse(HttpStatusCode.Created, output);
+        }
+
+        public HttpResponseMessage Put([FromBody] TestModel testModel)
+        {
+            var output = new TestModel
+            {
+                TestId = GetId(),
+                TestMessage = testModel.TestMessage,
+            };
+            return Request.CreateResponse(HttpStatusCode.OK, output);
+        }
+
+        public HttpResponseMessage Delete([FromBody] TestModel testModel)
+        {
+            var output = new TestModel
+            {
+                TestId = GetId(),
+                TestMessage = "Deleted",
+            };
+            return Request.CreateResponse(HttpStatusCode.NoContent, output);
         }
 
         private int GetId()
