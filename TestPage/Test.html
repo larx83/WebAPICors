@@ -37,11 +37,21 @@
             </div>
 
             <div class="pure-controls">
-                <button type="button" onclick="postButton();">Post to Test Controller</button>
+                <button type="button" onclick="getButton();">Get method</button>
             </div>
+            
             <div class="pure-controls">
-                <button type="button" onclick="getButton();">Get to Test Controller</button>
+                <button type="button" onclick="postButton();">Post method</button>
             </div>
+            
+            <div class="pure-controls">
+                <button type="button" onclick="putButton();">Put method</button>
+            </div>
+            
+            <div class="pure-controls">
+                <button type="button" onclick="deleteButton();">Delete method</button>
+            </div>
+
         </form>
 
         <pre id="testResults"></pre>
@@ -76,8 +86,7 @@
             dataType: "json",
             crossDomain: true,
             success: function (data) {
-                document.getElementById("testResults").innerHTML = JSON.stringify(data, null, '   ');
-                document.getElementById("testId").value = data.TestId + 1;
+                displayResponce(data);
             },
             failure: function (errMsg) {
                 alert(errMsg);
@@ -88,8 +97,12 @@
     function getButton() {
         
         $.getJSON(getUrl(), function (data) {
-            document.getElementById("testResults").innerHTML = JSON.stringify(data, null, '   ');
+            displayResponce(data);
         });
+    }
+
+    function displayResponce(responce) {
+        document.getElementById("testResults").innerHTML = JSON.stringify(responce, null, '   ');
     }
 
 </script>

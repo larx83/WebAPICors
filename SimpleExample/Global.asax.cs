@@ -22,23 +22,31 @@ namespace CorsExample1
                 HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
                 HttpContext.Current.Response.AddHeader("Access-Control-Allow-Credentials", "true");
 
-                if (HttpContext.Current.Request.HttpMethod == "OPTIONS")
-                {
-                    HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-                    HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "Content-Type, Accept, Cache-control, pragma");
-                    HttpContext.Current.Response.AddHeader("Access-Control-Max-Age", "1728000");
-                    HttpContext.Current.Response.End();
-                }
+                //if (HttpContext.Current.Request.HttpMethod == "OPTIONS")
+                //{
+                //    HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+                //    HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "Content-Type, Accept, Cache-control, pragma");
+                //    HttpContext.Current.Response.AddHeader("Access-Control-Max-Age", "1728000");
+                //    HttpContext.Current.Response.End();
+                //}
 
                 
             }
-            //else
-            //{
-            //    if (HttpContext.Current.Request.HttpMethod == "OPTIONS")
-            //    {
-            //        HttpContext.Current.Response.End();
-            //    }
-            //}
+        }
+
+        protected void Application_EndRequest(Object sender, EventArgs e)
+        {
+            var resp = HttpContext.Current.Response;
+        }
+
+        protected void Application_PreSendRequestHeaders(Object sender, EventArgs e)
+        {
+            var resp = HttpContext.Current.Response;
+        }
+
+        protected void Application_PreSendRequestContent(Object sender, EventArgs e)
+        {
+            var resp = HttpContext.Current.Response;
         }
     }
 }
