@@ -59,14 +59,5 @@ namespace SimpleExample.Controllers
         {
             return rnd.Next(1, 1000);
         }
-
-        public string Options()
-        {
-            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "Content-Type, Accept, Cache-control, pragma");
-            HttpContext.Current.Response.AddHeader("Access-Control-Max-Age", "1728000");
-            HttpContext.Current.Response.End();
-            return null; // HTTP 200 response with empty body
-        }
     }
 }
